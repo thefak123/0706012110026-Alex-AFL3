@@ -9,9 +9,28 @@ import SwiftUI
 
 @main
 struct _706012110026_Alex_AFL3App: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
-    }
+    @StateObject private var modelData = ModelData()
+
+       var body: some Scene {
+           WindowGroup {
+               ContentView()
+                   .environmentObject(modelData)
+           }
+           #if !os(watchOS)
+           .commands {
+               LandmarkCommands()
+           }
+           #endif
+           
+           
+           #if os(watchOS)
+           WKNotificationScene(controller: NotificationController.self, category: "LandmarkNear")
+           #endif
+
+           #if os(macOS)
+           Settings {
+               LandmarksSetting()
+           }
+           #endif
+       }
 }

@@ -6,9 +6,34 @@
 //
 
 import Foundation
+import Combine
 
-var landmarks: [Landmark] = load("landmarkData.json")
+// Merepresentasikan bankdata atau informasi mengenai landmark atau hikedata
+final class ModelData: ObservableObject {
+    // load data landmark
+    @Published var landmarks: [Landmark] = load("landmarkData.json")
+    // load data hiking
+    var hikes: [Hike] = load("hikeData.json")
+    
+    // Nama profile
+    @Published var profile = Profile.default
+    
+    // Categories yang tersedia
+    var categories: [String: [Landmark]] {
+        Dictionary(
+            grouping: landmarks,
+            by: { $0.category.rawValue }
+        )
+    }
+    
+    // List landmark yang featured
+    var features: [Landmark] {
+            landmarks.filter { $0.isFeatured }
+        }
+}
 
+
+// load data dari resources
 func load<T: Decodable>(_ filename: String) -> T {
     let data: Data
 
