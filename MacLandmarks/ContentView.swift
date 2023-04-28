@@ -1,8 +1,8 @@
 //
 //  ContentView.swift
-//  MacLandmarks
+//  0706012110026-Alex-AFL3
 //
-//  Created by MacBook Pro on 26/04/23.
+//  Created by MacBook Pro on 24/04/23.
 //
 
 import SwiftUI
